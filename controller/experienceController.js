@@ -54,7 +54,7 @@ module.exports = {
             }
         }
     },
-    deleteExperience: async(req, res)=> {
+    removeExperience: async(req, res)=> {
         try {
             const results = await Experience.remove(req, res)
             return res.status(201).send(results)
