@@ -26,4 +26,16 @@ module.exports = {
             })
         }
     },
+    removePortfolio: async function(req, res) {
+        try {
+            result = await Portfolio.remove(req,res)
+            return res.send(result)
+        } catch (err) {
+            err.status ? res.status(err.status).send(err)
+            : res.status(500).send({
+                message: "Server Error",
+                status: 500
+            })
+        }
+    },
 }
