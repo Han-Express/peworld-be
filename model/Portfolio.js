@@ -66,5 +66,35 @@ module.exports = {
             })
             
         }) 
-    }
+    },
+    remove: function(req, res) {
+        return new Promise((resolve, reject) => {
+            
+            const {id} = req.params;
+            const {name} = req.query;
+            const sql = `
+                DELETE FROM portfolio
+                WHERE user_id=${id}
+                AND name="${name}"
+            `
+            db.query(sql, (err,results) => {
+
+                if(err) {
+                    reject({
+                        message: "Server is Error",
+                        status: 500,
+                        detail: err
+                    })
+                } else {
+                    resolve({
+                        message: "Success",
+                        status: 200,
+                        data: results
+                    })
+                    
+                }
+            })
+            
+        }) 
+    },
 }

@@ -26,7 +26,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const {id} = req.params;
             console.log(id)
-          const sql = `SELECT experience.company_name, position, entry_date, date_out, description FROM experience  WHERE user_id =${id}`;
+          const sql = `SELECT experience_id, experience.company_name, position, entry_date, date_out, description FROM experience  WHERE user_id =${id}`;
           db.query(sql, (err, results) => {
             if (err) {
               console.log(err)
@@ -36,7 +36,7 @@ module.exports = {
               });
             }
             resolve({
-              message: "Get all from experience success",
+              message: "Get from experience success",
               status: 200,
               data: results
               // data:{results,
@@ -110,5 +110,37 @@ module.exports = {
           })
         })
       },
+
+      remove: function(req, res) {
+        return new Promise((resolve, reject) => {
+            
+            const {id} = req.params
+            const {companyName} = req.query 
+            const sql = `
+                DELETE FROM experience
+                WHERE user_id=${id}
+                AND company_name="${companyName}"
+            `
+            db.query(sql, (err,results) => {
+
+                if(err) {
+                    reject({
+                        message: "Server is Error",
+                        status: 500,
+                        detail: err
+                    })
+                } else {
+                    resolve({
+                        message: "Success",
+                        status: 200,
+                        data: results
+                    })
+                    
+                }
+            })
+            
+        }) 
+    },
+
     
 }

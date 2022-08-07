@@ -4,16 +4,31 @@ const validator = require ('validator')
 module.exports = {
   get: (req, res)=> {
     return new Promise((resolve, reject)=> {
-      const {job_status, page= 1, limit= 4}=req.query
+      const {job_status, page= 1, limit= 4, skill}=req.query
       const offset = (page -  1)*limit
 
      
-      const sql = `SELECT employees.job, job_status, domicile, instagram, github, gitlab,description, users.name, email, image FROM employees join users on employees.user_id=users.user_id  ${job_status? `WHERE job_status = '${job_status}' ` : ""} limit ${limit} offset ${offset}`
+      const sql = `
+      SELECT users.user_id, 
+      employees.job, job_status, 
+      domicile, instagram, github, gitlab,
+      description, users.name,
+      email, image
+      FROM employees 
+      JOIN users 
+      on employees.user_id=users.user_id
+      JOIN skill
+      ON employees.user_id = skill.user_id
+      WHERE skill.skill LIKE "%${skill}%" 
+      ${job_status? `WHERE job_status = '${job_status}' ` : ""}
+      GROUP BY users.user_id
+      LIMIT ${limit} OFFSET ${offset}`
       db.query(sql,(err, results)=> {
         if(err) {
           reject({
-            message: err,
-            status : 500
+            message: "server is error",
+            status : 500,
+            detail: err
           })
         }
         resolve({
@@ -39,13 +54,9 @@ module.exports = {
               });
             }
             resolve({
-              message: "Get all from employees success",
+              message: "Get employees success",
               status: 200,
               data: results
-              // data:{results,
-              //   ...req.body
-              // }
-              
             });
           });
         });
@@ -76,19 +87,46 @@ module.exports = {
     update: (req, res) => {
         return new Promise((resolve, reject)=> {
           const {id} = req.params
-          db.query(`SELECT employees.job, job_status, phone_number, domicile, instagram, github, gitlab,description, users.name, email, image FROM  employees join users on employees.user_id=users.user_id WHERE users.user_id =${id}`,(err, results)=> {
-            if(err) {res.send({
-              
-              message: err,
-              status : 500
+          db.query(`SELECT employees.job, job_status, 
+          phone_number, domicile, instagram, github, 
+          gitlab,description, users.name, email, image 
+          FROM  employees join users on employees.user_id=users.user_id WHERE users.user_id =${id}`,(err, results)=> {
+          
+            if(err) {
+              reject({
+              message: "server is error",
+              status : 500,
+              detail: err
             })}
+
+            if(results[0].length === 0) {
+              reject({
+                message: "data not found",
+                status : 400,
+                data: []
+              })
+            }
+
+            if(results[0].image) {
+              fs.unlink(`./${process.env.FILE_PATH}/${results[0].image}`, (err,result)=> {})
+            }
         
             const previousData = {
               ...results[0],
               ...req.body
             }
-            const {name, email, phone_number, image, job, job_status, domicile, instagram, github, gitlab, description } = previousData
-            console.log(phone_number, 'haalo')
+
+            console.log(req.body)
+
+            let { 
+              name, email, phone_number, image, job,
+               job_status, domicile, instagram, github,
+              gitlab, description } = previousData
+            
+            if(req.file) {
+              image = req.file.filename
+            }
+           
             if (!validator.isEmail (email)){
 
               reject({
@@ -105,8 +143,9 @@ module.exports = {
                 if(err) {
                   console.log(err)
                   reject({
-                    message: err,
-                    status: 500
+                    message: "server is error",
+                    status: 500,
+                    detail: err
                   })
                 }
                 resolve({

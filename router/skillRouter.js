@@ -1,10 +1,11 @@
 const express = require("express");
 const skillController = require("../controller/skillController");
+const verifyEmployee = require("../helper/verifyEmployee");
 const router  = express.Router()
 
 router.get("/:id", skillController.getSkill);
-router.post("/", skillController.addSkill);
-router.patch("/:id", skillController.updateSkill);
-router.delete("/:id", skillController.removeSkill);
+router.post("/", verifyEmployee, skillController.addSkill);
+router.patch("/:id", verifyEmployee, skillController.updateSkill);
+router.delete("/:id", verifyEmployee, skillController.removeSkill);
 
 module.exports = router

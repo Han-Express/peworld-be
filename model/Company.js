@@ -75,6 +75,7 @@ module.exports = {
                         ...result[0],
                         ...req.body
                     } 
+                    
                     let {
                         email, phone_number,
                         company_name, sector, 
