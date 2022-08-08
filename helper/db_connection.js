@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     database: process.env.database,
     port: 25060,
     dialect: "mysql",
-    dialectOption: {
+    dialectOptions: {
       ssl: {
         ssl: true,
         cert: fs.readFileSync(path.resolve(__dirname,  "ca-certificate.crt")).toString("utf8")
