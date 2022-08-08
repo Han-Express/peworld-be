@@ -1,11 +1,20 @@
 const mysql = require("mysql");
+const fs = require("fs")
 
 
 const db = mysql.createConnection({
     host: process.env.host,
     user: process.env.root,
     password: process.env.password,
-    database: process.env.database
+    database: process.env.database,
+    port: 25060,
+    dialect: "mysql",
+    dialectOption: {
+      ssl: {
+        ssl: true,
+        cert: fs.readFileSync(path.resolve(__dirname,  "ca-certificate.crt")).toString("utf8")
+      }
+    }
   })
   
   db.connect((err)=> {
