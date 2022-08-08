@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {getAllExperience,getExperienceId, addNewExperience, updateExperience, removeExperience} = require('../controller/ExperienceController')
+const {getAllExperience,getExperienceId, addNewExperience, updateExperience, removeExperience} = require('../controller/experienceController')
 const verifyEmployee = require("../helper/verifyEmployee")
 // const ExperienceController = require("../controller/ExperienceController.js")
 
