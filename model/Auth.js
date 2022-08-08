@@ -79,7 +79,7 @@ module.exports = {
                 })
             } else if(password?.length < 10) {
                 reject({
-                    message: "password too small",
+                    message: "password length must be atleast 10",
                     status: 400,
                 })
             } else if(!validator.isMobilePhone(phone_number, "id-ID")) {
@@ -172,8 +172,14 @@ module.exports = {
                                 role: result[0].role
                             } 
                         })
+                    } else {
+                        reject({
+                            message: "email/password Salah",
+                            status: 500,
+                            error: err
+                        })
                     }
-                })
+                }) 
 
                }
             })
