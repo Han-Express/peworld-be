@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {getAllUsers,getUsersId, addNewUsers, updateUsers} = require('../controller/UsersController')
+const {getAllUsers,getUsersId, addNewUsers, updateUsers} = require('../controller/usersController')
 // const usersController = require("../controller/usersController.js")
 
 
