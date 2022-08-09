@@ -101,12 +101,12 @@ module.exports = {
                     } else {
 
                         const sql = `
-                        UPDATE companies, users SET users.email ="${email}",
-                        users.phone_number ="${phone_number}", users.image="${image}",
-                        company_name = "${company_name}", 
-                        sector ="${sector}", domicile="${domicile}", 
-                        description="${description}", instagram="${instagram}", 
-                        linked_in="${linked_in}"
+                        UPDATE companies, users SET users.email ='${email}',
+                        users.phone_number ='${phone_number}', users.image='${image}',
+                        company_name = '${company_name}', 
+                        sector ='${sector}', domicile='${domicile}', 
+                        description='${description}', instagram='${instagram}', 
+                        linked_in='${linked_in}'
                         WHERE companies.user_id = users.user_id AND 
                         companies.user_id = ${id} AND users.user_id = ${id}
                         `

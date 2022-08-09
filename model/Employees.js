@@ -19,7 +19,7 @@ module.exports = {
       on employees.user_id=users.user_id
       JOIN skill
       ON employees.user_id = skill.user_id
-      WHERE skill.skill LIKE "%${skill}%" 
+      WHERE skill.skill LIKE '%${skill}%' 
       ${job_status? `WHERE job_status = '${job_status}' ` : ""}
       GROUP BY users.user_id
       LIMIT ${limit} OFFSET ${offset}`

@@ -45,7 +45,7 @@ module.exports = {
 
             const sql = `
                 INSERT INTO skill(user_id, skill) 
-                VALUES ("${user_id}", "${skill}")
+                VALUES ('${user_id}', '${skill}')
             `
             db.query(sql, (err,results) => {
 
@@ -75,7 +75,7 @@ module.exports = {
             const { id } = req.params
             
             const sql = `
-                UPDATE skill SET skill="${skill}"
+                UPDATE skill SET skill='${skill}'
                 WHERE skill_id=${id}
             `
             db.query(sql, (err,results) => {
@@ -108,7 +108,7 @@ module.exports = {
             const sql = `
                 DELETE FROM skill
                 WHERE user_id=${id}
-                AND skill="${skill}"
+                AND skill='${skill}'
             `
             db.query(sql, (err,results) => {
 

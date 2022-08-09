@@ -44,7 +44,7 @@ module.exports = {
 
             const sql = `
                 INSERT INTO portfolio(name, link, image, user_id) 
-                VALUES ("${name}", "${link}", "${image}", "${user_id}")
+                VALUES ('${name}', '${link}', '${image}', '${user_id}')
             `
             db.query(sql, (err,results) => {
 
@@ -75,7 +75,7 @@ module.exports = {
             const sql = `
                 DELETE FROM portfolio
                 WHERE user_id=${id}
-                AND name="${name}"
+                AND name='${name}'
             `
             db.query(sql, (err,results) => {
 
