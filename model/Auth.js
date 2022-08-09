@@ -28,7 +28,7 @@ module.exports = {
 
             bcrypt.hash(password, 10,(err, hash) => {
                 const sql = `INSERT INTO users(email, password, name, phone_number, role) 
-                VALUES("${email}", "${hash}", "${name}", "${phone_number}", "employee")`
+                VALUES('${email}', '${hash}', '${name}', '${phone_number}', 'employee')`
                 
                 db.query(sql, (err, result) => {
                     if(err) {
@@ -92,7 +92,7 @@ module.exports = {
 
             bcrypt.hash(password, 10,(err, hash) => {
                 const sql = `INSERT INTO users(email, password, name, phone_number, role) 
-                VALUES("${email}", "${hash}", "${name}", "${phone_number}", "recruiter")`
+                VALUES('${email}', '${hash}', '${name}', '${phone_number}', 'recruiter')`
                 
                 db.query(sql, (err, result) => {
                     if(err) {
@@ -109,7 +109,7 @@ module.exports = {
                         })
                     } else {
 
-                        db.query(`INSERT INTO companies(user_id, company_name, sector) VALUES(LAST_INSERT_ID(), "${company_name}", "${sector}")`, (err, result) => {
+                        db.query(`INSERT INTO companies(user_id, company_name, sector) VALUES(LAST_INSERT_ID(), '${company_name}', '${sector}')`, (err, result) => {
                             if(err) {
                                 reject({
                                     message: "server is ERROR",
@@ -137,7 +137,7 @@ module.exports = {
             const {email, password} = req.body;
             console.log(process.env.PRIVATE_KEY)
 
-            const sql = `SELECT user_id, role, password FROM users WHERE email = "${email.toLowerCase()}"`
+            const sql = `SELECT user_id, role, password FROM users WHERE email = '${email.toLowerCase()}'`
             db.query(sql, (err, result) => {
                if(err) {
                 reject({
