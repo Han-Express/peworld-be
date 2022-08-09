@@ -108,7 +108,7 @@ module.exports = {
               })
             }
 
-            if(results[0].image) {
+            if(req.file) {
               fs.unlink(`./${process.env.FILE_PATH}/${results[0].image}`, (err,result)=> {})
             }
         
