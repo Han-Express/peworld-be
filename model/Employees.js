@@ -10,7 +10,7 @@ module.exports = {
 
      
       const sql = `
-      SELECT users.user_id, users.phone_number
+      SELECT users.user_id, users.phone_number,
       employees.job, job_status, 
       domicile, instagram, github, gitlab,
       description, users.name,
