@@ -48,7 +48,6 @@ module.exports = {
         });
       },
 
-
       add: (req, res)=> {
       return new Promise((resolve, reject)=> {
         const {user_id, company_name, position, entry_date, date_out, description} = req.body
@@ -70,6 +69,7 @@ module.exports = {
         })
       })
     },
+
     update: (req, res) => {
         return new Promise((resolve, reject)=> {
           const {id} = req.params
