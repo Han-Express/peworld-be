@@ -1,5 +1,6 @@
 const db = require('../helper/db_connection')
 const validator = require ('validator')
+const fs = require("fs")
 
 module.exports = {
   get: (req, res)=> {
@@ -9,7 +10,7 @@ module.exports = {
 
      
       const sql = `
-      SELECT users.user_id, 
+      SELECT users.user_id, users.phone_number
       employees.job, job_status, 
       domicile, instagram, github, gitlab,
       description, users.name,
@@ -44,7 +45,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             const {id} = req.params;
             console.log(id)
-          const sql = `SELECT employees.job, job_status, domicile, instagram, github, gitlab,description, users.name, email, image FROM  employees join users on employees.user_id=users.user_id WHERE users.user_id =${id}`;
+          const sql = `SELECT employees.job, job_status, domicile, instagram, github, gitlab,description, users.name, email, image, users.phone_number FROM  employees join users on employees.user_id=users.user_id WHERE users.user_id =${id}`;
           db.query(sql, (err, results) => {
             if (err) {
               console.log(err)
