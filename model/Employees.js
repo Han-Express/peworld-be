@@ -24,7 +24,8 @@ module.exports = {
       ${job_status? `WHERE job_status = '${job_status}' ` : ""}
       GROUP BY users.user_id
       LIMIT ${limit} OFFSET ${offset}`
-      db.query(sql,(err, results)=> {
+      db.query(sql,(err, results1)=> {
+
         if(err) {
           reject({
             message: "server is error",
@@ -32,11 +33,36 @@ module.exports = {
             detail: err
           })
         }
-        resolve({
-          message: "get all from employees success",
-          status: 200,
-          data: results
+
+        const sql = `SELECT * FROM employees JOIN users 
+        on employees.user_id=users.user_id
+        JOIN skill
+        ON employees.user_id = skill.user_id
+        WHERE skill.skill LIKE '%${skill}%' 
+        ${job_status? `WHERE job_status = '${job_status}' ` : ""}
+        GROUP BY users.user_id`
+        db.query(sql, (err, results2) => {
+          
+          if(err) {
+            reject({
+              message: "server is error",
+              status : 500,
+              detail: err
+            })
+          }
+
+          const totalData = results2?.length;
+          const totalPage = Math.ceil(totalData / limit) 
+          resolve({
+            message: "get all from employees success",
+            status: 200,
+            data: results1,
+            totalPage: totalPage,
+            totalData: totalData 
+          })
+
         })
+       
       })
     })
   },
