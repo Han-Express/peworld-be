@@ -34,7 +34,13 @@ module.exports = {
           })
         }
 
-        const sql = `SELECT * FROM employees JOIN users 
+        const sql = `SELECT users.user_id, users.phone_number,
+        employees.job, job_status, 
+        domicile, instagram, github, gitlab,
+        description, users.name,
+        email, image
+        FROM employees 
+        JOIN users 
         on employees.user_id=users.user_id
         JOIN skill
         ON employees.user_id = skill.user_id
