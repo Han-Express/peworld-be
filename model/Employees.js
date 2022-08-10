@@ -34,11 +34,13 @@ module.exports = {
           })
         }
 
-        const skill = results1[0]?.skill.split(",")
-        const data = {
-          ...results1[0],
-          skill
-        } 
+        const data = results1.map((item) => {
+            return {
+              ...item,
+            skill: item.skill.split(",")
+            }
+        })
+       
 
         const sql = `SELECT users.user_id, users.phone_number,
         employees.job, job_status, 
