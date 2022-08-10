@@ -5,7 +5,7 @@ module.exports = {
         const {table, column} = req.body
         return new Promise((resolve, reject) => {
             const sql = `ALTER TABLE ${table} 
-                ALTER ${column} SET DEFAULT NULL
+                MODIFY COLUMN ${column} varchar(225) NULL
             `
            db.query(sql ,(err, result) => {
                 if(err) {
