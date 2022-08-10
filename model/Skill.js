@@ -103,12 +103,12 @@ module.exports = {
         return new Promise((resolve, reject) => {
             
             const {id} = req.params
-            const {skill} = req.query
+            const {skillId} = req.query
 
             const sql = `
                 DELETE FROM skill
                 WHERE user_id=${id}
-                AND skill='${skill}'
+                AND skill_id='${skillId}'
             `
             db.query(sql, (err,results) => {
 
