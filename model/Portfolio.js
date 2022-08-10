@@ -71,11 +71,11 @@ module.exports = {
         return new Promise((resolve, reject) => {
             
             const {id} = req.params;
-            const {name} = req.query;
+            const {portfolioId} = req.query;
             const sql = `
                 DELETE FROM portfolio
                 WHERE user_id=${id}
-                AND name='${name}'
+                AND portfolio_id='${portfolioId}'
             `
             db.query(sql, (err,results) => {
 
