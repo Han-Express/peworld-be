@@ -16,8 +16,9 @@ module.exports = {
                     }) 
                 } else {
                     resolve({
-                        message: success,
-                        status: 200
+                        message: "success",
+                        status: 200,
+                        result
                     })
                 }
            })
