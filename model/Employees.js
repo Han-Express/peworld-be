@@ -14,7 +14,7 @@ module.exports = {
       employees.job, job_status, 
       domicile, instagram, github, gitlab,
       description, users.name,
-      email, image
+      email, image, GROUP_CONCAT(skill.skill) as skill
       FROM employees 
       JOIN users 
       on employees.user_id=users.user_id
@@ -33,6 +33,14 @@ module.exports = {
             detail: err
           })
         }
+
+        const data = results1.map((item) => {
+            return {
+              ...item,
+            skill: item.skill.split(",")
+            }
+        })
+       
 
         const sql = `SELECT users.user_id, users.phone_number,
         employees.job, job_status, 
@@ -62,7 +70,7 @@ module.exports = {
           resolve({
             message: "get all from employees success",
             status: 200,
-            data: results1,
+            data: data,
             totalPage: totalPage,
             totalData: totalData 
           })
