@@ -3,7 +3,7 @@ const db = require("../helper/db_connection")
 module.exports = {
     getConversations: function(req, res) {
         return new Promise((resolve, reject) => {
-            const sql = `SELECT * FROM conversations WHERE receiver_id = ${req.params.id} `;
+            const sql = `SELECT * FROM conversations WHERE receiver_id = ${req.params.id} OR sender_id = ${req.params.id} `;
             db.query(sql, (err, results) => {
                 if(err) {
                     reject({
