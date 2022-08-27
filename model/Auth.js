@@ -135,7 +135,6 @@ module.exports = {
     login: function(req, res) {
         return new Promise((resolve, reject)=> {
             const {email, password} = req.body;
-            console.log(process.env.PRIVATE_KEY)
 
             const sql = `SELECT user_id, role, password FROM users WHERE email = '${email.toLowerCase()}'`
             db.query(sql, (err, result) => {
