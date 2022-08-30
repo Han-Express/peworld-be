@@ -85,7 +85,7 @@ module.exports = {
     },
     getMessages: function(req, res) {
         return new Promise((resolve, reject) => {
-            const sql = `SELECT * FROM messages WHERE coversaton_id = ${req.params.id}`;
+            const sql = `SELECT * FROM messages WHERE conversation_id = ${req.params.id}`;
             db.query(sql, (err, results) => {
                 if(err) {
                     reject({
