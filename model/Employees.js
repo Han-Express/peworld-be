@@ -140,7 +140,7 @@ module.exports = {
               detail: err
             })}
 
-            if(results[0].length === 0) {
+            if(results[0]?.length === 0) {
               reject({
                 message: "data not found",
                 status : 400,
