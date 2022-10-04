@@ -43,9 +43,9 @@ module.exports = {
                             status: 500,
                             error: err
                         })
-                    } else {
+                    } else if(result) {
 
-                        db.query('INSERT INTO employees(user_id) VALUES(LAST_INSERT_ID())', (err, result) => {
+                        db.query(`INSERT INTO employees(user_id) VALUES(${result.insertId})`, (err, result) => {
                             if(err) {
                                 reject({
                                     message: "server is ERROR",
@@ -109,7 +109,7 @@ module.exports = {
                         })
                     } else if(result) {
 
-                        db.query(`INSERT INTO companies(user_id, company_name, sector) VALUES(LAST_INSERT_ID(), '${company_name}', '${sector}')`, (err, result) => {
+                        db.query(`INSERT INTO companies(user_id, company_name, sector) VALUES(${result.insertId}, '${company_name}', '${sector}')`, (err, result) => {
                             if(err) {
                                 reject({
                                     message: "server is ERROR",
