@@ -107,7 +107,7 @@ module.exports = {
                             status: 500,
                             error: err
                         })
-                    } else {
+                    } else if(result) {
 
                         db.query(`INSERT INTO companies(user_id, company_name, sector) VALUES(LAST_INSERT_ID(), '${company_name}', '${sector}')`, (err, result) => {
                             if(err) {
